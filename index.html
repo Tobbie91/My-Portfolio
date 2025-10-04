@@ -1,298 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - Oluwatobi Akinrimisi</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oluwatobi Akinrimisi – Frontend‑heavy Full‑Stack Developer</title>
+  <meta name="description" content="Frontend‑heavy full‑stack developer. React, TypeScript, Tailwind, Node/Express, Postgres, MongoDB. Selected projects: Esemie, Court App, ILEARN, Faith Hospital, Food Munch." />
+  <meta property="og:title" content="Oluwatobi Akinrimisi – Portfolio" />
+  <meta property="og:description" content="Frontend‑heavy full‑stack developer focused on elegant UX and performance." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://oluwatobi-akinrimisi.netlify.app/" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Tailwind Play CDN (great for a single page). For production, compile Tailwind. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac',
+              400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
+              800: '#166534', 900: '#14532d'
+            },
+            ink: '#0b1220'
+          },
+          dropShadow: {
+            glow: '0 10px 25px rgba(16,185,129,.25)'
+          },
+          fontFamily: {
+            inter: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Additional custom styles */
-    body {
-      background-image: url('/images/6.avif'); /* Replace with your background image path */
-      background-size: cover;
-      background-attachment: fixed;
-    }
-    /* Animations */
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    @keyframes slideInFromLeft {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(0); }
-    }
-    @keyframes dropIn {
-      0% { transform: translateY(-50px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-    .fade-in {
-      animation: fadeIn 1s ease-out;
-    }
-    .slide-in-from-left {
-      animation: slideInFromLeft 1s ease-out;
-    }
-    .drop-in {
-      animation: dropIn 0.5s ease-out forwards;
-      opacity: 0;
-    }
-    .hover-scale:hover {
-      transform: scale(1.05);
-      transition: transform 0.3s;
-    }
-    .transition {
-      transition: all 0.3s ease;
-    }
-    .side-drawer {
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-    }
-    .side-drawer.open {
-      transform: translateX(0);
-    }
+    /* background image + scrim */
+    .site-bg { background-image: url('images/6.avif'); background-size: cover; background-position: center; }
+    /* nice reveal */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px);} to { opacity: 1; transform: translateY(0);} }
+    .reveal { animation: fadeUp .7s ease-out both; }
+    /* make anchor scroll land below fixed header */
+    section { scroll-margin-top: 96px; }
+    /* Hide native scrollbars on project grid hover (purely cosmetic) */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="font-inter text-slate-100 bg-ink selection:bg-primary-300 selection:text-ink">
+  <!-- Decorative background with gradient overlay -->
+  <div class="site-bg fixed inset-0 -z-20"></div>
+  <div class="fixed inset-0 -z-10 bg-gradient-to-b from-black/70 via-ink/80 to-ink"></div>
+
+  <!-- Skip link for a11y -->
+  <a href="#about" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 bg-ink text-white px-3 py-2 rounded-lg">Skip to content</a>
 
   <!-- Header -->
-  <header class="bg-white text-black p-4 fixed w-full z-50">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold">Oluwatobi Akinrimisi</h1>
-      <button id="menuButton" class="lg:hidden block focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-      <nav class="hidden lg:flex">
-        <a href="#about" class="ml-4 hover:underline transition-all duration-300">About</a>
-        <a href="#projects" class="ml-4 hover:underline transition-all duration-300">Projects</a>
-        <a href="#contact" class="ml-4 hover:underline transition-all duration-300">Contact</a>
+  <header class="fixed top-0 inset-x-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-ink/50 border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="#home" class="group inline-flex items-center gap-3">
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-primary-400 to-emerald-600 grid place-items-center drop-shadow-glow">
+          <span class="font-black">OA</span>
+        </div>
+        <div class="leading-tight">
+          <p class="font-semibold tracking-wide">Oluwatobi Akinrimisi</p>
+          <p class="text-xs text-slate-300">Frontend‑heavy Full‑Stack Developer</p>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#about" class="navlink opacity-80 hover:opacity-100">About</a>
+        <a href="#projects" class="navlink opacity-80 hover:opacity-100">Projects</a>
+        <a href="#contact" class="navlink opacity-80 hover:opacity-100">Contact</a>
+        <a href="/cv.pdf" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl border border-white/10">Download CV</a>
       </nav>
+
+      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center p-2 rounded-lg hover:bg-white/10" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
   </header>
 
-    <!-- Side Drawer -->
-    <div id="sideDrawer" class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-40 side-drawer">
-      <button id="closeButton" class="absolute top-4 right-4 focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-      <nav class="mt-16 flex flex-col items-start">
-        <a href="#about" class="block px-4 py-2 hover:bg-gray-200 w-full">About</a>
-        <a href="#projects" class="block px-4 py-2 hover:bg-gray-200 w-full">Projects</a>
-        <a href="#contact" class="block px-4 py-2 hover:bg-gray-200 w-full">Contact</a>
+  <!-- Mobile drawer -->
+  <div id="drawer" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/60" id="drawerBackdrop"></div>
+    <aside class="absolute left-0 top-0 h-full w-72 bg-ink/95 border-r border-white/10 p-6 space-y-6">
+      <div class="flex items-center justify-between">
+        <span class="font-semibold">Menu</span>
+        <button id="drawerClose" class="p-2 rounded-lg hover:bg-white/10" aria-label="Close menu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="grid gap-2">
+        <a class="px-3 py-2 rounded-lg hover:bg-white/10" href="#about">About</a>
+        <a class="px-3 py-2 rounded-lg hover:bg-white/10" href="#projects">Projects</a>
+        <a class="px-3 py-2 rounded-lg hover:bg-white/10" href="#contact">Contact</a>
+        <a class="px-3 py-2 rounded-lg hover:bg-white/10" href="/cv.pdf">Download CV</a>
+      </nav>
+    </aside>
+  </div>
+
+  <main id="home" class="pt-24 md:pt-28">
+    <!-- Hero -->
+    <section class="max-w-6xl mx-auto px-4 py-14 md:py-20">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div class="reveal">
+          <h1 class="text-3xl md:text-5xl font-extrabold leading-tight">
+            I craft fast, elegant web apps with <span class="text-primary-400">React</span> & <span class="text-primary-400">TypeScript</span>.
+          </h1>
+          <p class="mt-4 text-slate-300 max-w-prose">Full‑stack developer (frontend‑heavy) focused on delightful UX, performance, and clean architecture. I love turning complex ideas into intuitive, shippable products.</p>
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <a href="#projects" class="inline-flex items-center gap-2 rounded-xl bg-primary-600 hover:bg-primary-500 px-5 py-3 font-medium drop-shadow-glow">See my work</a>
+            <a href="#contact" class="inline-flex items-center gap-2 rounded-xl border border-white/15 hover:bg-white/10 px-5 py-3 font-medium">Contact me</a>
+          </div>
+          <ul class="mt-6 flex flex-wrap gap-2 text-xs">
+            <li class="px-3 py-1 rounded-full bg-white/10 border border-white/10">React</li>
+            <li class="px-3 py-1 rounded-full bg-white/10 border border-white/10">Vite</li>
+            <li class="px-3 py-1 rounded-full bg-white/10 border border-white/10">Tailwind</li>
+            <li class="px-3 py-1 rounded-full bg-white/10 border border-white/10">Node/Express</li>
+            <li class="px-3 py-1 rounded-full bg-white/10 border border-white/10">Postgres</li>
+            <li class="px-3 py-1 rounded-full bg-white/10 border border-white/10">MongoDB</li>
+            <li class="px-3 py-1 rounded-full bg-white/10 border border-white/10">SEO</li>
+          </ul>
+        </div>
+        <div class="reveal md:justify-self-end">
+          <div class="relative">
+            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary-400/30 to-emerald-500/30 blur"></div>
+            <img src="images/4.png" alt="Project preview" class="relative rounded-2xl border border-white/10 shadow-2xl" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="max-w-6xl mx-auto px-4 py-14">
+      <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-8 md:p-10 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold">About me</h2>
+        <p class="mt-3 text-slate-300">I’m Oluwatobi, a developer who ships. I obsess over DX/UX, performance budgets, and accessible interfaces. I enjoy collaborating with product teams to turn Figma into fast, resilient, real‑world apps.</p>
+
+        <div class="mt-6 grid gap-6 md:grid-cols-3">
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <h3 class="font-semibold">Frontend</h3>
+            <p class="text-sm text-slate-300 mt-2">React, React Router, Hooks, Zustand, TypeScript, Tailwind, Styled‑components, Gatsby.</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <h3 class="font-semibold">Backend</h3>
+            <p class="text-sm text-slate-300 mt-2">Node, Express, REST, Supabase, Auth, file uploads, Cloudinary.</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <h3 class="font-semibold">Data & DevOps</h3>
+            <p class="text-sm text-slate-300 mt-2">PostgreSQL, MongoDB, Vercel, Netlify, CI basics, analytics, SEO.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="max-w-6xl mx-auto px-4 py-14">
+      <div class="flex items-end justify-between gap-4">
+        <h2 class="text-2xl md:text-3xl font-bold">Selected projects</h2>
+        <a href="https://github.com/" target="_blank" class="text-sm opacity-80 hover:opacity-100">More on GitHub →</a>
+      </div>
+
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <!-- Card template -->
+        <article class="group rounded-3xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition reveal">
+          <a href="https://www.esemie.io" target="_blank" class="block">
+            <img src="images/4.png" alt="Esemie Website" class="h-56 w-full object-cover" />
+          </a>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold">Esemie Website</h3>
+              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10">Marketing site</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-300">Overview site for the Esemie business management tool with performance‑minded, SEO‑friendly setup.</p>
+            <a href="https://www.esemie.io" target="_blank" class="mt-3 inline-flex items-center gap-2 text-sm opacity-90 hover:opacity-100">Visit site →</a>
+          </div>
+        </article>
+
+        <article class="group rounded-3xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition reveal" style="animation-delay:.05s">
+          <a href="https://app.esemie.io/" target="_blank" class="block">
+            <img src="images/5.png" alt="Esemie Business App" class="h-56 w-full object-cover" />
+          </a>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold">Esemie Business App</h3>
+              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10">SaaS</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-300">Invoices, expenses, and reporting. Built with React + TypeScript; state via Zustand; storage via Supabase.</p>
+            <a href="https://app.esemie.io/" target="_blank" class="mt-3 inline-flex items-center gap-2 text-sm opacity-90 hover:opacity-100">Open app →</a>
+          </div>
+        </article>
+
+        <article class="group rounded-3xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition reveal" style="animation-delay:.1s">
+          <a href="https://familycourt.rv.gov.ng/" target="_blank" class="block">
+            <img src="images/3.png" alt="Court App" class="h-56 w-full object-cover" />
+          </a>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold">Court App</h3>
+              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10">Workflow</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-300">Streamlines case management, document handling, and scheduling for judicial teams.</p>
+            <a href="https://familycourt.rv.gov.ng/" target="_blank" class="mt-3 inline-flex items-center gap-2 text-sm opacity-90 hover:opacity-100">View project →</a>
+          </div>
+        </article>
+
+        <article class="group rounded-3xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition reveal" style="animation-delay:.15s">
+          <a href="https://faith-specialist-hospital.netlify.app/" target="_blank" class="block">
+            <img src="images/8.png" alt="Faith Hospital" class="h-56 w-full object-cover" />
+          </a>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold">Faith Hospital</h3>
+              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10">Healthcare</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-300">Appointment booking and patient info flows with a clean, modern UI.</p>
+            <a href="https://faith-specialist-hospital.netlify.app/" target="_blank" class="mt-3 inline-flex items-center gap-2 text-sm opacity-90 hover:opacity-100">Visit site →</a>
+          </div>
+        </article>
+
+        <article class="group rounded-3xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition reveal" style="animation-delay:.2s">
+          <a href="https://ilearn-sq012-node.netlify.app" target="_blank" class="block">
+            <img src="images/2.png" alt="ILEARN" class="h-56 w-full object-cover" />
+          </a>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold">ILEARN</h3>
+              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10">EdTech</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-300">Tutor‑student matching with simple flows and responsive UI.</p>
+            <a href="https://ilearn-sq012-node.netlify.app" target="_blank" class="mt-3 inline-flex items-center gap-2 text-sm opacity-90 hover:opacity-100">View project →</a>
+          </div>
+        </article>
+
+        <article class="group rounded-3xl border border-white/10 bg-white/5 overflow-hidden hover:bg-white/10 transition reveal" style="animation-delay:.25s">
+          <a href="https://foodorderring.netlify.app" target="_blank" class="block">
+            <img src="images/pic2.jpeg" alt="Food Munch App" class="h-56 w-full object-cover" />
+          </a>
+          <div class="p-6">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold">Beafrique Fashion</h3>
+              <span class="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10">Ordering</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-300">Sustainable ready-to-wear dresses that celebrates African identity</p>
+            <a href="https://beafrique.netlify.app/" target="_blank" class="mt-3 inline-flex items-center gap-2 text-sm opacity-90 hover:opacity-100">Open app →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="max-w-6xl mx-auto px-4 py-14">
+      <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-8 md:p-10 reveal">
+        <h2 class="text-2xl md:text-3xl font-bold">Let’s build something</h2>
+        <p class="mt-2 text-slate-300">Ping me for collaborations, freelance, or full‑time roles.</p>
+
+        <div class="mt-6 grid gap-6 md:grid-cols-3">
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-2">
+            <p class="text-sm opacity-70">WhatsApp</p>
+            <a class="font-medium underline decoration-white/30 hover:decoration-white" href="https://wa.link/6lzgs6" target="_blank">+234 813 516 9538</a>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-2">
+            <p class="text-sm opacity-70">Email</p>
+            <a class="font-medium underline decoration-white/30 hover:decoration-white" href="mailto:oluwatobiakinrimisi@gmail.com">oluwatobiakinrimisi@gmail.com</a>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-2">
+            <p class="text-sm opacity-70">LinkedIn</p>
+            <a class="font-medium underline decoration-white/30 hover:decoration-white" target="_blank" href="https://www.linkedin.com/in/oluwatobi-akinrimisi-548a42b7/">@Oluwatobi Akinrimisi</a>
+          </div>
+        </div>
+
+        <form action="https://formspree.io/f/mblrlpbd" method="POST" class="mt-8 grid gap-4 md:grid-cols-2">
+          <label class="block">
+            <span class="text-sm">Name</span>
+            <input name="name" required class="mt-1 w-full rounded-xl bg-white/10 border border-white/10 px-3 py-2 outline-none focus:border-primary-400" />
+          </label>
+          <label class="block">
+            <span class="text-sm">Email</span>
+            <input type="email" name="email" required class="mt-1 w-full rounded-xl bg-white/10 border border-white/10 px-3 py-2 outline-none focus:border-primary-400" />
+          </label>
+          <label class="block md:col-span-2">
+            <span class="text-sm">Message</span>
+            <textarea name="message" rows="4" required class="mt-1 w-full rounded-xl bg-white/10 border border-white/10 px-3 py-2 outline-none focus:border-primary-400"></textarea>
+          </label>
+          <div class="md:col-span-2">
+            <button class="inline-flex items-center gap-2 rounded-xl bg-primary-600 hover:bg-primary-500 px-5 py-3 font-medium drop-shadow-glow" type="submit">Send message</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-slate-400 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>© <span id="year"></span> Oluwatobi Akinrimisi. All rights reserved.</p>
+      <nav class="flex items-center gap-4">
+        <a href="https://www.linkedin.com/in/oluwatobi-akinrimisi-548a42b7/" target="_blank" class="hover:text-slate-200">LinkedIn</a>
+        <a href="mailto:oluwatobiakinrimisi@gmail.com" class=\"hover:text-slate-200\">Email</a>
+        <a href="https://wa.link/6lzgs6" class="hover:text-slate-200">WhatsApp</a>
       </nav>
     </div>
-
-  <!-- About Section -->
-  <main class="pt-16">
-    <section id="about" class="container mx-auto p-8 mt-8 bg- shadow-md slide-in-from-left text-white">
-      <h2 class="text-3xl font-bold mb-4">About Me</h2>
-      <p>
-        Hi, I'm Oluwatobi Akinrimisi, a Full Stack Developer with a focus on front-end technologies and SEO optimization. With over 3 years of experience,
-        I have honed my skills in building scalable, efficient, and user-friendly web applications that rank well on search engines.
-      </p>
-      <p class="mt-4">
-        My expertise includes working with technologies such as:
-        <ul class="list-disc pl-5 mt-2">
-          <li><strong>Frontend:</strong> React, React Hooks, Gatsby, JavaScript, TypeScript, Tailwind CSS, Styled-components</li>
-          <li><strong>Backend:</strong> Node.js, Express.js</li>
-          <li><strong>Databases:</strong> PostgreSQL, MongoDB</li>
-          <li><strong>Version Control:</strong> Git, GitHub</li>
-          <li><strong>SEO:</strong> Technical SEO, on-page optimization, performance optimization, and content strategy</li>
-        </ul>
-      </p>
-      <p class="mt-4">
-        Over the course of my career, I have:
-        <ul class="list-disc pl-5 mt-2">
-          <li>Developed and maintained several web applications using React and Node.js, ensuring responsive and user-friendly interfaces.</li>
-          <li>Implemented complex state management solutions using React Hooks and Context API.</li>
-          <li>Created static websites and blogs with Gatsby, optimizing for performance and SEO to improve search engine rankings.</li>
-          <li>Collaborated with cross-functional teams to deliver high-quality software on time.</li>
-          <li>Integrated third-party APIs and services to enhance application functionality.</li>
-        </ul>
-      </p>
-      <p class="mt-4">
-        I am passionate about learning new technologies and continuously improving my skills. I enjoy tackling challenging problems and
-        coming up with innovative solutions. In my free time, I contribute to open-source projects and stay updated with the latest trends
-        in web development and SEO best practices.
-      </p>
-    </section>
-    
-
-  <!-- Projects Section -->
-  <section id="projects" class="container mx-auto p-8 mt-8 bg- shadow-md">
-    <h2 class="text-3xl font-bold mb-4 text-white">Projects</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-      <!-- Project 1: Esemie Website -->
-      <div class="bg-gray-200 p-4 shadow-md hover-scale transition drop-in" style="animation-delay: 0s;">
-        <h3 class="text-xl font-bold">Esemie Website</h3>
-        <a href="https://www.esemie.io" target="_blank" class="block mb-2 mt-3 rounded-lg overflow-hidden">
-            <img src="/images/4.png" alt="Esemie Website" class="w-full h-auto">
-          </a>
-        <p>
-          Esemie.io is the official website providing an overview of the Esemie business management tool.
-          It offers information about the features and benefits of the app, as well as customer testimonials and contact details.
-        </p>
-        <a href="https://www.esemie.io" class="text-blue-600 hover:underline" target="_blank">View Website</a>
-      </div>
-      <!-- Project 2: Esemie Business App -->
-      <div class="bg-gray-200 p-4 shadow-md hover-scale transition drop-in" style="animation-delay: 0.2s;">
-        <h3 class="text-xl font-bold">Esemie Business App</h3>
-   
-        <a href="https://app.esemie.io/" target="_blank" class="block mb-2 mt-3 rounded-lg overflow-hidden">
-            <img src="/images/5.png" alt="Esemie Website" class="w-full h-auto">
-          </a>
-
-        <p class="">
-          The Esemie business app at app.esemie.io helps users track invoices and expenses seamlessly.
-          It provides features such as invoice generation, expense tracking, and detailed financial reporting
-          to help businesses manage their finances efficiently.
-        </p>
-        <a href="https://app.esemie.io/" class="text-blue-600 hover:underline" target="_blank">View App</a>
-      </div>
-      <!-- Project 3: Court App -->
-      <div class="bg-gray-200 p-4 shadow-md hover-scale transition drop-in" style="animation-delay: 0.4s;">
-        <h3 class="text-xl font-bold">Court App</h3>
-        <a href="https://familycourt.rv.gov.ng/" target="_blank" class="block mb-2 mt-3 rounded-lg overflow-hidden">
-            <img src="/images/3.png" alt="Esemie Website" class="w-full h-auto">
-          </a>
-        <p>
-          This project was built to ease the workflow of a court. It streamlines case management, document handling,
-          and scheduling, making the judicial process more efficient.
-        </p>
-        <a href="https://familycourt.rv.gov.ng/" class="text-blue-600 hover:underline" target="_blank">View Project</a>
-      </div>
-        <!-- Project 4: FAITHHOSPITAL -->
-        <div class="bg-gray-200 p-4 shadow-md hover-scale transition drop-in" style="animation-delay: 0.6s;">
-          <h3 class="text-xl font-bold">FAITH HOSPITAL</h3>
-          <a href="https://faith-specialist-hospital.netlify.app/" target="_blank" class="block mb-2 mt-3 rounded-lg overflow-hidden">
-              <img src="/images/8.png" alt="Faith Website" class="w-full h-auto">
-            </a>
-          <p>
-            A modern and user-friendly hospital management website designed to streamline healthcare services. The platform offers seamless appointment booking, patient record management, and real-time updates, ensuring efficient communication between patients and medical staff.
-          </p>
-          <a href="https://faith-specialist-hospital.netlify.app/" class="text-blue-600 hover:underline" target="_blank">View Project</a>
-        </div>
-      <!-- Project 4: ILEARN -->
-      <div class="bg-gray-200 p-4 shadow-md hover-scale transition drop-in" style="animation-delay: 0.6s;">
-        <h3 class="text-xl font-bold">ILEARN</h3>
-        <a href="https://ilearn-sq012-node.netlify.app" target="_blank" class="block mb-2 mt-3 rounded-lg overflow-hidden">
-            <img src="/images/2.png" alt="Esemie Website" class="w-full h-auto">
-          </a>
-        <p>
-          ILEARN is a learning app that connects students with tutors for one-on-one classes.
-          It offers a platform for personalized learning and tutoring services.
-        </p>
-        <a href="https://ilearn-sq012-node.netlify.app" class="text-blue-600 hover:underline" target="_blank">View Project</a>
-      </div>
-      <!-- Project 5: FOOD Munch App -->
-      <div class="bg-gray-200 p-4 shadow-md hover-scale transition drop-in" style="animation-delay: 0.8s;">
-        <h3 class="text-xl font-bold">FOOD Munch App</h3>
-        <a href="https://foodorderring.netlify.app" target="_blank" class="block mb-2 mt-3 rounded-lg overflow-hidden">
-            <img src="/images/1.png" alt="Esemie Website" class="w-full h-auto">
-          </a>
-        <p>
-          The FOOD Munch App is a web-based application that provides a plethora of options for ordering cooked food products and services.
-          It offers an extensive menu, easy ordering process, and delivery tracking.
-        </p>
-        <a href="https://foodorderring.netlify.app" class="text-blue-600 hover:underline" target="_blank">View Project</a>
-      </div>
-      <!-- Project 6: Star Wars SPA -->
-      <!-- <div class="bg-gray-200 p-4 shadow-md hover-scale transition drop-in" style="animation-delay: 1s;">
-        <h3 class="text-xl font-bold">Star Wars SPA</h3>
-        <a href="https://tobbiestarwars.netlify.app" target="_blank" class="block mb-2 mt-3 rounded-lg overflow-hidden">
-            <img src="/images/7.png" alt="Star wars" class="w-full h-auto">
-          </a>
-        <p>
-          This single-page application (SPA) displays all characters of the Star Wars movie.
-          Built with vanilla JavaScript, jQuery, HTML5, and CSS3, it offers an engaging interface to explore Star Wars characters.
-        </p>
-        <a href="https://tobbiestarwars.netlify.app" class="text-blue-600 hover:underline" target="_blank">View Project</a>
-      </div> -->
-    </div>
-  </section>
-
- <!-- Contact Section -->
- <section id="contact" class="container mx-auto p-8 mt-8 bg- shadow-md text-white">
-  <h2 class="text-3xl font-bold mb-4">Contact</h2>
-  <p>If you'd like to get in touch, feel free to reach out to me through the following channels:</p>
-  <ul class="list-disc pl-5 mt-2">
-    <li>WhatsApp:    <a href="https://wa.link/6lzgs6"   class="text-blue-600 hover:underline">+2348135169538</a></li>
-    <li>Email:  <a href="mailto:oluwatobiakinrimisi@gmail.com" class="text-blue-600 hover:underline">oluwatobiakinrimisi@gmail.com</a></li>
-    <li>LinkedIn: <a href="https://www.linkedin.com/in/oluwatobi-akinrimisi-548a42b7/" class="text-blue-600 hover:underline" target="_blank">Oluwatobi Akinrimisi</a></li>
-  </ul>
-</section>
-<!-- <section id="contact" class="container mx-auto p-8 mt-8 bg- shadow-md fade-in text-white">
-    <h2 class="text-3xl font-bold mb-4">Contact Me</h2> -->
-  
-    <!-- WhatsApp Contact Button -->
-    <!-- <div class="mb-8">
-      <a href="https://wa.link/6lzgs6" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition-all duration-300 inline-block">
-        Contact Me on WhatsApp
-      </a>
-    </div>
-  
-    <form action="https://formspree.io/f/mblrlpbd" method="POST" class="mt-8">
-      <div class="mb-4">
-        <label for="name" class="block text-white">Name</label>
-        <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-gray-300 rounded transition-all duration-300">
-      </div>
-      <div class="mb-4">
-        <label for="email" class="block  text-white">Email</label>
-        <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded transition-all duration-300">
-      </div>
-      <div class="mb-4 text-white">
-        <label for="message" class="block  ">Message</label>
-        <textarea id="message" name="message" rows="4" required class="w-full px-3 py-2 border border-gray-300 rounded transition-all duration-300"></textarea>
-      </div>
-      <button type="submit" class="bg- text-white px-4 py-2 rounded hover:bg-blue-700 transition-all duration-300">Send Message</button>
-    </form>
-  </section> -->
-  
-
-  <!-- Footer Section -->
-  <footer class="bg- text-white p-4 mt-8">
-    <div class="container mx-auto text-center">
-      <p>&copy; 2024 Oluwatobi Akinrimisi. All rights reserved.</p>
-      <div class="flex justify-center mt-4">
-        <a href="https://www.linkedin.com/in/oluwatobi-akinrimisi-548a42b7/" target="_blank" class="mx-2 hover:underline">LinkedIn</a>
-        <a href="mailto:oluwatobiakinrimisi@gmail.com" class="mx-2 hover:underline">Email</a>
-        <a href="https://wa.link/6lzgs6" class="mx-2 hover:underline">WhatsApp</a>
-      </div>
-    </div>
   </footer>
-</main>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuButton = document.getElementById('menuButton');
-      const sideDrawer = document.getElementById('sideDrawer');
-      const closeButton = document.getElementById('closeButton');
-      const links = sideDrawer.querySelectorAll('a');
+    // Mobile drawer
+    const drawer = document.getElementById('drawer');
+    const menuBtn = document.getElementById('menuBtn');
+    const drawerClose = document.getElementById('drawerClose');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
 
-      menuButton.addEventListener('click', () => {
-        sideDrawer.classList.add('open');
-      });
+    function toggleDrawer(show){ drawer.classList.toggle('hidden', !show); document.body.style.overflow = show ? 'hidden' : ''; }
+    menuBtn?.addEventListener('click', ()=> toggleDrawer(true));
+    drawerClose?.addEventListener('click', ()=> toggleDrawer(false));
+    drawerBackdrop?.addEventListener('click', ()=> toggleDrawer(false));
+    drawer?.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> toggleDrawer(false)));
 
-      closeButton.addEventListener('click', () => {
-        sideDrawer.classList.remove('open');
-      });
-
-      links.forEach(link => {
-        link.addEventListener('click', () => {
-          sideDrawer.classList.remove('open');
-        });
-      });
-
-      links.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetId = link.getAttribute('href').substring(1);
-          document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
-        });
+    // Smooth scroll for in‑page anchors, with header offset handled by scroll-margin-top on sections
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const el = document.querySelector(id);
+        if (el){ e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
       });
     });
+
+    // Active link highlight (simple scrollspy)
+    const links = Array.from(document.querySelectorAll('.navlink'));
+    const sections = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+    const onScroll = () => {
+      const fromTop = window.scrollY + 100; // header offset
+      let current = sections[0];
+      sections.forEach(sec => { if (sec.offsetTop <= fromTop) current = sec; });
+      links.forEach(l => l.classList.toggle('text-primary-400', l.getAttribute('href') === '#' + current.id));
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
